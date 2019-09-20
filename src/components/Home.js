@@ -1,11 +1,15 @@
 import React from 'react';
-import BookForm from './BookForm';
 import { StyleSheet, css } from 'aphrodite';
+
+import BookForm from './BookForm';
+import BookNavBar from './BookNavBar';
+
 
 const Home = (props) => (
   <>
     <h1 className={css(styles.mainTitle)}>Welcome to the home page!</h1>
     <BookForm />
+    <BookNavBar />
   </>
 )
 
