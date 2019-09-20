@@ -1,6 +1,7 @@
 
 // this is fed an object that represents a book
 export const addBook = (bookData) => dispatch => {
+  //console.log(bookData.edition)
   const {
     title,
     author = '',

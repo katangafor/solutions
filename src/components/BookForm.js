@@ -12,8 +12,8 @@ class BookForm extends React.Component {
       title: '',
       author: '',
       subject: '',
-      description: '',
-      version: '',
+      yearPublished: '',
+      edition: '',
       error: ''
     }
   }
@@ -33,19 +33,14 @@ class BookForm extends React.Component {
     this.setState(() => ({ subject }))
   }
 
-  onDescriptionChange = (e) => {
-    const description = e.target.value;
-    this.setState(() => ({ description }))
+  onYearPublishedChange = (e) => {
+    const yearPublished = e.target.value;
+    this.setState(() => ({ yearPublished }))
   }
 
-  onDescriptionChange = (e) => {
-    const description = e.target.value;
-    this.setState(() => ({ description }))
-  }
-
-  onVersionChange = (e) => {
-    const version = e.target.value;
-    this.setState(() => ({ version }))
+  onEditionChange = (e) => {
+    const edition = e.target.value;
+    this.setState(() => ({ edition }))
   }
 
     onFormSubmit = (e) => {
@@ -54,8 +49,8 @@ class BookForm extends React.Component {
         title: this.state.title,
         author: this.state.author,
         subject: this.state.subject,
-        description: this.state.description,
-        version: this.state.version
+        yearPublished: this.state.yearPublished,
+        edition: this.state.edition
       }
 
       if (this.state.title === '') {
@@ -64,26 +59,7 @@ class BookForm extends React.Component {
       } else {
         this.props.submitBook(book);
       }
-      // const book = {
-      //   title: this.state.title,
-      //   author: this.state.author,
-      //   subject: this.state.subject,
-      //   description: this.state.description,
-      //   version: this.state.version
-      // }
-
-      // if (this.state.error === '') {
-
-      // }
     }
-
-  // onFormSubmit = (e) => {
-  //   e.preventDefault();
-  //   const book = {
-  //     ...this.state
-  //   }
-  //   this.props.submitBook(book);
-  // }
 
   render() {
     return (
@@ -114,21 +90,21 @@ class BookForm extends React.Component {
             value={this.state.subject}
             onChange={this.onSubjectChange}
           />
-          <p className={css(styles.label)}>Description:</p>
+          <p className={css(styles.label)}>Year published:</p>
           <input
             className={css(styles.textField)}
             type="text"
             placeholder=""
-            value={this.state.description}
-            onChange={this.onDescriptionChange}
+            value={this.state.yearPublished}
+            onChange={this.onYearPublishedChange}
           />
-          <p className={css(styles.label)}>Version:</p>
+          <p className={css(styles.label)}>edition:</p>
           <input
             className={css(styles.textField)}
             type="text"
             placeholder=""
-            value={this.state.version}
-            onChange={this.onVersionChange}
+            value={this.state.edition}
+            onChange={this.onEditionChange}
           />
           <button onClick={(e) => {e.preventDefault();console.log(this.props.state)}}>print the state</button>
         </form>

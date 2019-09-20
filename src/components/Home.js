@@ -3,13 +3,13 @@ import { StyleSheet, css } from 'aphrodite';
 
 import BookForm from './BookForm';
 import BookNavBar from './BookNavBar';
+import NavWrapper from './NavWrapper';
 
 
 const Home = (props) => (
   <>
-    <h1 className={css(styles.mainTitle)}>Welcome to the home page!</h1>
+    <NavWrapper />
     <BookForm />
-    <BookNavBar />
   </>
 )
 
