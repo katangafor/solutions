@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const BookNavBar = (props) => (
   <div>
-    
+    <p>yep</p>
   </div>
 )
 
