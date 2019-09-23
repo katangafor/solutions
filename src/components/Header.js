@@ -10,7 +10,7 @@ const Header = (props) => {
 
   return (
     <div className={css(styles.header)}>
-      <button className={css(styles.toggleButton)} onClick={toggleBookNav}>toggle!</button>
+      <button className={css(styles.toggleButton)} onClick={toggleBookNav}>books</button>
     </div>
   )
 }

@@ -98,7 +98,7 @@ class BookForm extends React.Component {
             value={this.state.yearPublished}
             onChange={this.onYearPublishedChange}
           />
-          <p className={css(styles.label)}>edition:</p>
+          <p className={css(styles.label)}>Edition:</p>
           <input
             className={css(styles.textField)}
             type="text"

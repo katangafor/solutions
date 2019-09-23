@@ -11,10 +11,10 @@ export default BookNavBarItem;
 
 const styles = StyleSheet.create({
   itemContainer: {
-    fontSize: 40,
+    fontSize: 20,
     padding: 10,
     margin: 0,
-    border: '1px solid black'
+    borderBottom: '1px solid black'
   },
   item: {
     margin: 0

@@ -29,7 +29,7 @@ export default connect(mapStateToProps)(BookNavBar);
 
 const styles = StyleSheet.create({
   navBar: {
-    backgroundColor: '#bdc3c7',
+    'backgroundColor': '#bdc3c7',
     position: 'fixed',
     left: 0,
     top: 60,
