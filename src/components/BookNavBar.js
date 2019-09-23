@@ -29,10 +29,12 @@ export default connect(mapStateToProps)(BookNavBar);
 
 const styles = StyleSheet.create({
   navBar: {
-    backgroundColor: '#2ecc71',
+    backgroundColor: '#bdc3c7',
     position: 'fixed',
     left: 0,
     top: 60,
+    height: '400px',
+    overflow: 'scroll',
     // mobile
     '@media only screen and (max-width: 750px)': {
       width: '100vw',

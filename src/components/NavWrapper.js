@@ -12,7 +12,6 @@ class NavWrapper extends React.Component {
   }
 
   toggleBookNav = () => {
-    console.log(this.state)
     if (this.state.bookNavOpen) {
       this.setState(() => ({ bookNavOpen: false }))
     } else {
