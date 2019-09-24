@@ -8,6 +8,6 @@ function App() {
   );
 }
 
-console.log(process.env.REACT_APP_DEV_API_URL);
+console.log(process.env.REACT_APP_BOOKS_API_KEY);
 
 export default App;
