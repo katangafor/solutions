@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { addBook } from '../actions/bookActions';
 
@@ -58,6 +59,7 @@ class BookForm extends React.Component {
         this.setState(() => ({ error: 'You have to include a book title. The other fields are optional.' }))
       } else {
         this.props.submitBook(book);
+        this.props.history.push('/');
       }
     }
 
@@ -127,7 +129,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookForm)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BookForm));
 
 const styles = StyleSheet.create({
   bookForm: {

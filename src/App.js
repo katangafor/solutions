@@ -8,4 +8,6 @@ function App() {
   );
 }
 
+console.log(process.env.REACT_APP_DEV_API_URL);
+
 export default App;
