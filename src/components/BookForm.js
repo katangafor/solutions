@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 import { addBook } from '../actions/bookActions';
 
@@ -12,38 +13,25 @@ class BookForm extends React.Component {
     this.state = {
       title: '',
       author: '',
-      subject: '',
-      yearPublished: '',
-      edition: '',
-      error: ''
+      lastChanged: ''
     }
   }
 
   onTitleChange = (e) => {
     const title = e.target.value;
-    this.setState(() => ({ title }))
+    this.setState(() => ({ 
+      title,
+      lastChanged: 'title'
+    }))
   }
 
   onAuthorChange = (e) => {
     const author = e.target.value;
-    this.setState(() => ({ author }))
+    this.setState(() => ({ 
+      author,
+      lastChanged: 'author'
+    }))
   }
-
-  onSubjectChange = (e) => {
-    const subject = e.target.value;
-    this.setState(() => ({ subject }))
-  }
-
-  onYearPublishedChange = (e) => {
-    const yearPublished = e.target.value;
-    this.setState(() => ({ yearPublished }))
-  }
-
-  onEditionChange = (e) => {
-    const edition = e.target.value;
-    this.setState(() => ({ edition }))
-  }
-
     onFormSubmit = (e) => {
       e.preventDefault();
       const book = {
@@ -61,6 +49,18 @@ class BookForm extends React.Component {
         this.props.submitBook(book);
         this.props.history.push('/');
       }
+    }
+
+    getBook = () => {
+      axios.get('https://www.googleapis.com/books/v1/volumes?q=introduction+to+quantum')
+        .then(function (response) {
+          console.log(response);
+          console.log(response.data.items[0].volumeInfo.title);
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     }
 
   render() {
@@ -84,34 +84,11 @@ class BookForm extends React.Component {
             value={this.state.author}
             onChange={this.onAuthorChange}
           />
-          <p className={css(styles.label)}>Subject:</p>
-          <input
-            className={css(styles.textField)}
-            type="text"
-            placeholder=""
-            value={this.state.subject}
-            onChange={this.onSubjectChange}
-          />
-          <p className={css(styles.label)}>Year published:</p>
-          <input
-            className={css(styles.textField)}
-            type="text"
-            placeholder=""
-            value={this.state.yearPublished}
-            onChange={this.onYearPublishedChange}
-          />
-          <p className={css(styles.label)}>Edition:</p>
-          <input
-            className={css(styles.textField)}
-            type="text"
-            placeholder=""
-            value={this.state.edition}
-            onChange={this.onEditionChange}
-          />
           <button onClick={(e) => {e.preventDefault();console.log(this.props.state)}}>print the state</button>
         </form>
         <button className={css(styles.submitButton)} onClick={this.onFormSubmit}>Add book</button>
         <p className={css(styles.errorMessage)}>{this.state.error}</p>
+        <p onClick={this.getBook}>pls get a book</p>
       </div>
     )
   }
