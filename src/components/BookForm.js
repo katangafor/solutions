@@ -3,6 +3,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import encodeUrl from 'encodeurl';
 
 import { addBook } from '../actions/bookActions';
 
@@ -13,55 +14,65 @@ class BookForm extends React.Component {
     this.state = {
       title: '',
       author: '',
-      lastChanged: ''
+      lastChanged: '',
+      error: ''
     }
   }
 
   onTitleChange = (e) => {
     const title = e.target.value;
-    this.setState(() => ({ 
-      title,
-      lastChanged: 'title'
-    }))
+    if (title === '') {
+      this.setState(() => ({ 
+        title,
+        lastChanged: ''
+      }))
+    } else {
+      this.setState(() => ({ 
+        title,
+        lastChanged: 'title'
+      }))
+    }
   }
 
   onAuthorChange = (e) => {
     const author = e.target.value;
-    this.setState(() => ({ 
-      author,
-      lastChanged: 'author'
-    }))
-  }
-    onFormSubmit = (e) => {
-      e.preventDefault();
-      const book = {
-        title: this.state.title,
-        author: this.state.author,
-        subject: this.state.subject,
-        yearPublished: this.state.yearPublished,
-        edition: this.state.edition
-      }
-
-      if (this.state.title === '') {
-        console.log('boutta make an error')
-        this.setState(() => ({ error: 'You have to include a book title. The other fields are optional.' }))
-      } else {
-        this.props.submitBook(book);
-        this.props.history.push('/');
-      }
+    if (author === '') {
+      this.setState(() => ({ 
+        author,
+        lastChanged: ''
+      }))
+    } else {
+      this.setState(() => ({ 
+        author,
+        lastChanged: 'author'
+      }))
     }
+  }
 
-    getBook = () => {
-      axios.get('https://www.googleapis.com/books/v1/volumes?q=introduction+to+quantum')
+  // TODO searching only happens by title, the author is extra,
+
+  onFormSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.lastChanged === '') {
+      this.setState({ error: 'Sorry, you hafta enter a title' });
+    } else {
+      this.setState({ error: '' });
+      if (this.state.lastChanged === 'title') {
+        const title = encodeUrl(this.state.title)
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${title}`)
         .then(function (response) {
           console.log(response);
           console.log(response.data.items[0].volumeInfo.title);
-          
         })
         .catch(function (error) {
           console.log(error);
         })
+      } else if (this.state.lastChanged === 'author') {
+        
+
+      }
     }
+  }
 
   render() {
     return (
@@ -88,7 +99,6 @@ class BookForm extends React.Component {
         </form>
         <button className={css(styles.submitButton)} onClick={this.onFormSubmit}>Add book</button>
         <p className={css(styles.errorMessage)}>{this.state.error}</p>
-        <p onClick={this.getBook}>pls get a book</p>
       </div>
     )
   }
