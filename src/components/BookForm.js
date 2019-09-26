@@ -62,7 +62,7 @@ class BookForm extends React.Component {
 
   render() {
     return (
-      <div  className={css(styles.bookForm)}>
+      <div className={css(styles.bookForm)}>
         <form>
           <p className={css(styles.label)}>Title:</p>
           <input
@@ -109,26 +109,25 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(BookForm)
 
 const styles = StyleSheet.create({
   bookForm: {
-    width: '80%',
-    margin: '0 auto'
+    width: '100%',
+    margin: '0 auto',
   },
   label: {
     fontSize: 18,
-    marginBottom: 6
+    marginBottom: 6,
+    marginLeft: 15
   },
   textField: {
     width: '80%',
     padding: '8px 14px',
     margin: 0,
+    marginLeft: 15,
     border: '1px solid #ccc',
     borderRadius: 8,
     fontSize: 20,
   },
   errorMessage: {
     color: 'red'
-  },
-  submitButtonContainer: {
-
   },
   submitButton: {
     fontSize: 30,
@@ -138,6 +137,7 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: '#bdc3c7',
     margin: 0,
+    marginLeft: 15,
     marginTop: 20,
     width: '80%',
     ':hover': {

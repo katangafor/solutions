@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
   toggleButton: {
     color: 'white',
     fontSize: '30px',
-    padding: 10
+    padding: 10,
+    backgroundColor: 'black',
+    border: 'none'
   }
 })
