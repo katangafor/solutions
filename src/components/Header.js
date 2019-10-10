@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     backgroundColor: 'black',
+    zIndex: 100
   },
   toggleButton: {
     color: 'white',

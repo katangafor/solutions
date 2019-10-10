@@ -1,39 +1,57 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { connect } from 'react-redux';
 
-const BookSearchResult = ({ title, author, thumbnail }) => (
+import { addBook } from '../actions/bookActions';
+
+const BookSearchResult = (props) => {
+
+  const submitBook = () => {
+    props.submitBook({
+      title: props.title,
+      author: props.author
+    })
+  }
+
+  return (
   <div className={css(styles.bookSearchResult)}>
-    <img className={css(styles.thumbnail)} src={thumbnail} alt="ok"></img>
-    <h3 className={css(styles.title)}>{title}</h3>
-    <p className={css(styles.author)}>By {author}</p>
-  </div>
-)
+    <img className={css(styles.thumbnail)} src={props.thumbnail} alt="ok" onClick={submitBook}></img>
+    <h3 className={css(styles.title)}>{props.title} ({props.date})</h3>
+    <p className={css(styles.author)}>By {props.author}</p>
+  </div>)
+}
 
-export default BookSearchResult;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    submitBook: (book) => dispatch(addBook(book))
+  }
+}
+
+export default connect(undefined, mapDispatchToProps)(BookSearchResult);
 
 const styles = StyleSheet.create({
   bookSearchResult: {
     width: '90%',
+    height: 200,
     margin: '0 auto',
     padding: '10px 0px',
     borderBottom: '1px solid black',
-    display: 'grid',
-    gridTemplateRows: 'repeat(2, 1fr)',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    alignItems: 'end'
+    position: 'relative'
   },
   thumbnail: {
-    gridColumn: '1',
-    gridRow: '1 / 3'
+    ':hover': {
+      cursor: 'pointer'
+    }
   },
   title: {
-    gridColumn: '2 / 4',
-    gridRow: '1',
-    paddingLeft: 10
+    fontSize: 20,
+    position: 'absolute',
+    left: 150,
+    top: 10
   },
   author: {
-    gridColumn: '2 / 4',
-    gridRow: '2',
-    paddingLeft: 10
+    position: 'absolute',
+    left: 150,
+    bottom: 20
   }
 })

@@ -27,6 +27,8 @@ class BookForm extends React.Component {
     }))
   }
 
+  // TODO this fat boi makes author and year unknown by default, and then changes them if they exist. There's gotta be a way to use default parameters for that
+
   onFormSubmit = (e) => {
     e.preventDefault();
     if (this.state.title === '') {
@@ -40,13 +42,18 @@ class BookForm extends React.Component {
         let books = [];
         for (let i = 0; i < 10; i++) {
           let author  = 'Unknown';
+          let date = 'Unkown date';
           if (response.data.items[i].volumeInfo.authors) {
             author = response.data.items[i].volumeInfo.authors[0];
+          }
+          if (response.data.items[i].volumeInfo.publishedDate) {
+            date = response.data.items[i].volumeInfo.publishedDate.substring(0, 4)
           }
           books.push({
             title: response.data.items[i].volumeInfo.title,
             author,
-            thumbnail: response.data.items[i].volumeInfo.imageLinks.thumbnail
+            thumbnail: response.data.items[i].volumeInfo.imageLinks.thumbnail,
+            date
           })
           this.setState({
             books
@@ -60,6 +67,8 @@ class BookForm extends React.Component {
     
   }
 
+  // TODO make it so that hitting "enter" presses the find book button (onKeyUp and stuff)
+
   render() {
     return (
       <div className={css(styles.bookForm)}>
@@ -72,12 +81,11 @@ class BookForm extends React.Component {
             value={this.state.title}
             onChange={this.onTitleChange}
           />
-          <button onClick={(e) => {e.preventDefault();console.log(this.state)}}>print the state</button>
         </form>
         <button className={css(styles.submitButton)} onClick={this.onFormSubmit}>Search books</button>
         <p className={css(styles.errorMessage)}>{this.state.error}</p>
         {this.state.books.length === 0 ? (
-          <p>No books!</p>
+          <p>You're aboutta get so many sick book results</p>
         ) : (
           this.state.books.map((book) => {
             return <BookSearchResult 
@@ -85,6 +93,7 @@ class BookForm extends React.Component {
               title={book.title} 
               author={book.author}
               thumbnail={book.thumbnail}
+              date={book.date}
             />
       })
     )}
